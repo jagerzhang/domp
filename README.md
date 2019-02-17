@@ -1,7 +1,9 @@
 ### 一、简单介绍
 domp是`Docker+Openresty+php-fpm+MySQL`环境的首字母缩写，可以基于Docker快速部署`Openresty + php-fpm + MySQL`，并且支持开启redis动、静态缓存支持。
+
 domp用到的Docker镜像全部来自`hub.docker.com`的官方镜像，其中php-fpm因为各网站需求的模块各异，所以单独抽出来自定义编译，基于Dockerfile，过程透明，可完全自定义。
-通过domp来部署一个php网站环境，不考虑国内网络因素，耗时不超过5分钟，而通过OneinStack或lnmp一键安装包少说也要40分钟甚至1小时以上，高下立判！
+
+通过domp来部署一个php网站环境，不考虑国内网络因素，耗时不超过5分钟，而通过OneinStack或lnmp一键安装包少说也要40分钟甚至1小时以上，高下立判。目前张戈博客完全基于domp稳定运行半年有余，性能、稳定性、可运维性还是值得肯定的！
 
 ### 二、环境要求
 理论上可以基于任何支持docker的平台，不过domp内置的一些脚本是基于centos 7编写，所以如果是非centos 7系统，不可以通过脚本快速部署，请参见下面的附录。
