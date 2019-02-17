@@ -34,6 +34,7 @@ services:
       - /etc/localtime:/etc/localtime
       - ./etc/php/php-fpm.d:/etc/php-fpm.d
       - /dev/shm:/dev/shm
+      - /var/log/php-fpm:/data/wwwlogs/php-fpm
       - /data:/data
       - /tmp:/tmp
     network_mode: host

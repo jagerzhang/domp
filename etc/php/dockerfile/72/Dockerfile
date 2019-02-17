@@ -7,6 +7,4 @@ RUN yum install -y epel-release  \
     && yum clean all \
     && ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
     
-COPY reload_php.sh /
-
 CMD ["php-fpm", "-F"]
