@@ -1,0 +1,63 @@
+version: "3"
+services:
+  mysql:
+    container_name: mysql
+    image: mysql:8.0
+    ports:
+      - 127.0.0.1:3306:3306
+    volumes:
+      - /etc/localtime:/etc/localtime
+      - /data/mysql_data:/var/lib/mysql
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      - "MYSQL_ROOT_PASSWORD=yourpassword"
+    privileged: true
+    restart: always
+
+  redis:
+    image: redis:latest
+    ports:
+      - 127.0.0.1:6379:6379
+    volumes:
+      - /data/redis:/data
+      - /etc/localtime:/etc/localtime
+    command: redis-server --appendonly yes
+    container_name: redis
+    privileged: true
+    restart: always 
+ 
+  php-fpm:
+    container_name: php-fpm
+    image: php-fpm:7.2
+    volumes:
+      - /etc/localtime:/etc/localtime
+      - ./etc/php-fpm.d:/etc/php-fpm.d
+      - /dev/shm:/dev/shm
+      - /data:/data
+      - /tmp:/tmp
+    network_mode: host
+    depends_on:
+      - mysql
+      - redis
+    privileged: true
+    restart: always
+
+  openresty:
+    container_name: openresty
+    image: openresty/openresty:centos
+    ports:
+      - 443:443
+      - 80:80
+    volumes:
+      - /etc/localtime:/etc/localtime
+      - ./etc/nginx/conf.d:/etc/nginx/conf.d
+      - ./etc/nginx/cert:/etc/nginx/cert
+      - /dev/shm:/dev/shm
+      - /data:/data
+      - /tmp:/tmp
+    network_mode: host
+    depends_on:
+      - php-fpm
+      - redis
+    privileged: true
+    restart: always
