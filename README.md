@@ -1,10 +1,11 @@
-# domp
-## 基于Docker快速部署Openresty + php-fpm + MySQL，并且支持开启redis动、静态缓存支持。
+### 一、简单介绍
+domp是Docker+Openresty+php-fpm+MySQL环境的首字母缩写，可以基于Docker快速部署Openresty + php-fpm + MySQL，并且支持开启redis动、静态缓存支持。
+domp用到的Docker镜像全部来自hub.docker.com的官方镜像，其中php-fpm因为各网站需求的模块各异，所以单独抽出来自定义编译，基于Dockerfile，过程透明，可完全自定义。
 
-### 一、环境要求
+### 二、环境要求
 理论上可以基于任何支持docker的平台，不过domp内置的一些脚本是基于centos 7编写，所以如果是非centos 7系统，不可以通过脚本快速部署，请参见下面的附录。
 
-### 二、目录及文件说明（必读）：
+### 三、目录及文件说明（必读）：
 ```
 [root@localhost]# tree
 .
@@ -35,7 +36,7 @@
 ├── README.md
 └── reload_php.sh  # php reload脚本，build镜像的时候回ADD到镜像里面。
 ```
-### 二、快速拉起domp环境
+### 四、快速拉起domp环境
 #### 1、 克隆代码
 ```
 mkdir -p /data && cd /data
@@ -65,7 +66,7 @@ eb5684527e4b        php-fpm:7.2                  "php-fpm -F"             2 hour
 41381dea3d7f        redis:latest                 "docker-entrypoint.s…"   2 hours ago         Up 2 hours          127.0.0.1:6379->6379/tcp              redis
 1f6278298539        mysql:8.0                    "docker-entrypoint.s…"   4 days ago          Up 4 days           127.0.0.1:3306->3306/tcp, 33060/tcp   mysql
 ```
-### 三、配置网站
+### 五、配置网站
 
 #### 1、虚拟主机配置说明
 domp 默认已经自带了2种虚拟主机配置：`yourdomain.com.conf` 和 `yourdomain.com_cache.conf`，第一个不带`redis`缓存，第二个带`redis`缓存，自行选择一个，然后删除另一个即可。然后参考这个配置文件来定制自己网站的配置文件。若看不懂这个配置文件，可以直接拷贝网站原来的`vhost`配置文件也可以。
