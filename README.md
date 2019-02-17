@@ -27,8 +27,18 @@ domp用到的Docker镜像全部来自`hub.docker.com`的官方镜像，其中php
 │   │       └── vhost            # 虚拟主机配置（必须修改的配置），已放置2个参考实例配置，仅供参考：
 │   │           ├── yourdomain.com_cache.conf  # 站点配置文件（带缓存），实际使用需要将yourdomain.com改成实际域名。
 │   │           └── yourdomain.com.conf        # 站点配置文件（无缓存），实际使用需要将yourdomain.com改成实际域名。
-│   └── php-fpm.d
-│       └── php-fpm.conf   # php-fpm 配置
+│   └── php
+│       ├── dockerfile  # php-fpm 镜像编译配置（已添加5.6、7.0-7.2版本编译文件）
+│       │   ├── 56
+│       │   │   └── Dockerfile
+│       │   ├── 70
+│       │   │   └── Dockerfile
+│       │   ├── 71
+│       │   │   └── Dockerfile
+│       │   └── 72
+│       │       └── Dockerfile
+│       └── php-fpm.d
+│           └── php-fpm.conf # php-fpm 配置
 ├── init.sh  # domp 初始化并启动的脚本
 ├── LICENSE
 ├── opt
@@ -45,17 +55,22 @@ domp用到的Docker镜像全部来自`hub.docker.com`的官方镜像，其中php
 mkdir -p /data && cd /data
 git clone https://github.com/jagerzhang/domp.git
 ```
-#### 2、修改MySQL root密码
+#### 2、修改MySQL root密码、指定php版本
 ```
 vim docker-compose.yml
 找到：
 - "MYSQL_ROOT_PASSWORD=yourpassword"
 将 yourpassword 改成自定义密码
+
+找到：
+build: ./etc/php/dockerfile/72/ 
+将72改成需要的php版本，目前支持56、70、71、72 四个版本，若无版本刚需，使用默认的7.2即可！
 ```
 #### 3、修改php模块（Ps：绝大部分网站无需修改，除非出现php模块缺失报错）
 ```
-vim Dockerfile
-找到如下语句，若满足要求则无需修改，若缺少某模块，则加上 php72w-模块名称，pecl的可能要额外加上 pecl
+vim etc/php/dockerfile/72/Dockerfile  # 注意你选择的实际版本，这里说7.2版本修改说明，其他版本可参考修改。
+
+# 找到如下语句，若满足要求则无需修改，若缺少某模块，则加上 php72w-模块名称，pecl的可能要额外加上 pecl
 yum install -y memcached php72w-fpm php72w-gd php72w-pecl-memcached php72w-opcache php72w-mysql php72w-mbstring php72w-pecl-redis
 ```
 #### 4、启动domp
@@ -92,11 +107,7 @@ Ps：此处提供linux通用安装命令：
 curl -L "https://github.com/docker/compose/releases/download/1.23.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/bin/docker-compose
 chmod +x /usr/bin/docker-compose
 ```
-3、编译php-fpm镜像，若需要自定义php的模块，请编辑Dockerfile，再执行如下命令：
-```
-docker build -t "php-fpm:7.2" ./
-```
-4、启动domp
+3、启动domp
 ```
 docker-compose up -d
 ```
