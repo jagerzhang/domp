@@ -81,6 +81,7 @@ https证书请放置到 `domp/etc/nginx/cert` 目录，然后在vhost配置中�
 1、安装docker，参考：https://docs.docker.com/install/
 
 2、安装 docker-compose，参考：https://docs.docker.com/compose/install/
+
 Ps：此处提供linux通用安装命令：
 ```
 curl -L "https://github.com/docker/compose/releases/download/1.23.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/bin/docker-compose
