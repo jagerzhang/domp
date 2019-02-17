@@ -1,5 +1,5 @@
 # domp
-## 基于Docker快速部署openresty + php-fpm + MySQL，并且支持开启redis动、静态缓存支持。
+## 基于Docker快速部署Openresty + php-fpm + MySQL，并且支持开启redis动、静态缓存支持。
 
 ### 一、环境要求
 理论上可以基于任何支持docker的平台，不过domp内置的一些脚本是基于centos 7编写，所以如果是非centos 7系统，不可以通过脚本快速部署，请参见下面的附录。
