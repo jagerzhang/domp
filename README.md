@@ -2,7 +2,7 @@
 ## 基于Docker快速部署openresty + php-fpm + MySQL，并且支持开启redis动、静态缓存支持。
 
 ### 一、环境要求
-理论上可以基于任何支持docker的平台，不过domp内置的一些脚本是基于centos 7编写，所以如果是非centos 7系统，不可以通过脚本快速部署，可以先手工安装docker（参考：https://docs.docker.com/install/ ），再参考`init.sh`脚本安装之后的内容来完成部署。
+理论上可以基于任何支持docker的平台，不过domp内置的一些脚本是基于centos 7编写，所以如果是非centos 7系统，不可以通过脚本快速部署，请参见下面的附录。
 
 ### 二、目录及文件说明（必读）：
 ```
@@ -35,9 +35,8 @@
 ├── README.md
 └── reload_php.sh  # php reload脚本，build镜像的时候回ADD到镜像里面。
 ```
-
 ### 二、快速拉起domp环境
-#### 1、 修改克隆代码
+#### 1、 克隆代码
 ```
 mkdir -p /data && cd /data
 git clone https://github.com/jagerzhang/domp.git
@@ -49,8 +48,34 @@ vim docker-compose.yml
 - "MYSQL_ROOT_PASSWORD=yourpassword"
 将 yourpassword 改成自定义密码
 ```
-#### 3、启动domp
+#### 3、修改php模块（Ps：绝大部分网站无需修改，除非出现php模块缺失报错）
+```
+vim Dockerfile
+找到如下语句，若满足要求则无需修改，若缺少某模块，则加上 php72w-模块名称，pecl的可能要额外加上 pecl
+yum install -y memcached php72w-fpm php72w-gd php72w-pecl-memcached php72w-opcache php72w-mysql php72w-mbstring php72w-pecl-redis
+```
+#### 4、启动domp
 ```
 bash init.sh
 ```
 ### 三、配置网站
+
+## 附录
+### 非centos环境使用参考
+
+1、安装docker，参考：https://docs.docker.com/install/
+
+2、安装 docker-compose，参考：https://docs.docker.com/compose/install/
+Ps：此处提供linux通用安装命令：
+```
+curl -L "https://github.com/docker/compose/releases/download/1.23.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/bin/docker-compose
+chmod +x /usr/bin/docker-compose
+```
+3、编译php-fpm镜像，若需要自定义php的模块，请编辑Dockerfile，再执行如下命令：
+```
+docker build -t "php-fpm:7.2" ./
+```
+4、启动domp
+```
+docker-compose up -d
+```
