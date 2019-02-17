@@ -1,5 +1,5 @@
 ### 一、简单介绍
-domp是`Docker+Openresty+php-fpm+MySQL`环境的首字母缩写，可以基于Docker快速部署`Openresty + php-fpm + MySQL`，并且支持开启redis动、静态缓存支持。
+domp是`Docker+Openresty+php-fpm+MySQL`环境的首字母缩写，可以基于Docker快速部署`Openresty + php-fpm + MySQL`，并且支持开启redis动、静态缓存优化。
 
 domp用到的Docker镜像全部来自`hub.docker.com`的官方镜像，其中php-fpm因为各网站需求的模块各异，所以单独抽出来自定义编译，基于Dockerfile，过程透明，可完全自定义。
 
