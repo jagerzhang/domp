@@ -57,8 +57,23 @@ yum install -y memcached php72w-fpm php72w-gd php72w-pecl-memcached php72w-opcac
 #### 4、启动domp
 ```
 bash init.sh
+
+docker ps # 查看是否正常启动
+CONTAINER ID        IMAGE                        COMMAND                  CREATED             STATUS              PORTS                                 NAMES
+2fdcd10d05c6        openresty/openresty:centos   "/usr/bin/openresty …"   2 hours ago         Up 2 hours                                                openresty
+eb5684527e4b        php-fpm:7.2                  "php-fpm -F"             2 hours ago         Up 2 hours                                                php-fpm
+41381dea3d7f        redis:latest                 "docker-entrypoint.s…"   2 hours ago         Up 2 hours          127.0.0.1:6379->6379/tcp              redis
+1f6278298539        mysql:8.0                    "docker-entrypoint.s…"   4 days ago          Up 4 days           127.0.0.1:3306->3306/tcp, 33060/tcp   mysql
 ```
 ### 三、配置网站
+
+#### 1、虚拟主机配置说明
+domp 默认已经自带了2种虚拟主机配置：`yourdomain.com.conf` 和 `yourdomain.com_cache.conf`，第一个不带`redis`缓存，第二个带`redis`缓存，自行选择一个，然后删除另一个即可。然后参考这个配置文件来定制自己网站的配置文件。若看不懂这个配置文件，可以直接拷贝网站原来的`vhost`配置文件也可以。
+
+#### 2、https证书配置说明
+https证书请放置到 `domp/etc/nginx/cert` 目录，然后在vhost配置中引用即可，注意在vhost里面的配置要变为：/etc/nginx/cert/你放置到证书名字，而非domp/etc/nginx/cert目录，因为已经挂载到了docker里面了！！！
+
+#### 3、待补充...
 
 ## 附录
 ### 非centos环境使用参考
