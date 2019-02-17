@@ -15,6 +15,7 @@ services:
     restart: always
 
   redis:
+    container_name: redis
     image: redis:latest
     ports:
       - 127.0.0.1:6379:6379
@@ -22,16 +23,16 @@ services:
       - /data/redis:/data
       - /etc/localtime:/etc/localtime
     command: redis-server --appendonly yes
-    container_name: redis
     privileged: true
     restart: always 
  
   php-fpm:
+    build: ./etc/php/dockerfile/72/
     container_name: php-fpm
     image: php-fpm:7.2
     volumes:
       - /etc/localtime:/etc/localtime
-      - ./etc/php-fpm.d:/etc/php-fpm.d
+      - ./etc/php/php-fpm.d:/etc/php-fpm.d
       - /dev/shm:/dev/shm
       - /data:/data
       - /tmp:/tmp
