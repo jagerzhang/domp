@@ -68,8 +68,9 @@ build: ./etc/php/dockerfile/72/
 ```
 #### 3、修改php模块（Ps：绝大部分网站无需修改，除非出现php模块缺失报错）
 ```
-vim etc/php/dockerfile/72/Dockerfile # 注意你选择的实际版本，这里说7.2版本修改说明，其他版本可参考修改。
-找到如下语句，若满足要求则无需修改，若缺少某模块，则加上 php72w-模块名称，pecl的可能要额外加上 pecl
+vim etc/php/dockerfile/72/Dockerfile  # 注意你选择的实际版本，这里说7.2版本修改说明，其他版本可参考修改。
+
+# 找到如下语句，若满足要求则无需修改，若缺少某模块，则加上 php72w-模块名称，pecl的可能要额外加上 pecl
 yum install -y memcached php72w-fpm php72w-gd php72w-pecl-memcached php72w-opcache php72w-mysql php72w-mbstring php72w-pecl-redis
 ```
 #### 4、启动domp
