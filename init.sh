@@ -21,8 +21,5 @@ chkconfig docker on
 curl -L "https://github.com/docker/compose/releases/download/1.23.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/bin/docker-compose
 chmod +x /usr/bin/docker-compose
 
-# build php-fpm
-docker build -t "php-fpm:7.2" ./
-
 # start service
 docker-compose up -d
