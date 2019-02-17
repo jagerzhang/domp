@@ -46,7 +46,7 @@ The $1 must be [db]
     $6: [back_path]
     $7: [isDel]
 
-For example:./backup.sh db zhang.ge zhangge_db zhangge 123456 /home/wwwbackup/zhang.ge
+For example:./backup.sh db zhang.ge zhangge_db zhangge 123456 /data/wwwbackup/zhang.ge
 
 2. Use For Backup webfile:
 The $1 must be [file]:
@@ -55,7 +55,7 @@ The $1 must be [file]:
     $4: [back_path]
     $5: [isDel]
 
-For example:./backup.sh file zhang.ge /home/wwwroot/zhang.ge /home/wwwbackup/zhang.ge
+For example:./backup.sh file zhang.ge /data/wwwroot/zhang.ge /data/wwwbackup/zhang.ge
 =====================================End of Hlep==============================================
 
 '
@@ -71,8 +71,8 @@ backupDB()
     back_path=$5
     test -d $back_path || (mkdir -p $back_path || echo "$back_path not found! Please CheckOut Or feedback to zhang.ge..." && exit 2)
     cd $back_path
-    #如果是要备份远程MySQL，则修改如下语句中localhost为远程MySQL地址
-    $MYSQLDUMP -hlocalhost -u$mysqluser -p$mysqlpd $dbname --skip-lock-tables --default-character-set=utf8 >$back_path/$domain\_db_$TODAY\.sql
+    #如果是要备份远程MySQL，则修改如下语句中127.0.0.1为远程MySQL地址
+    $MYSQLDUMP -h127.0.0.1 -u$mysqluser -p$mysqlpd $dbname --skip-lock-tables --default-character-set=utf8 >$back_path/$domain\_db_$TODAY\.sql
     test -f $back_path/$domain\_db_$TODAY\.sql || (echo "MysqlDump failed! Please CheckOut Or feedback to zhang.ge..." && exit 2)
     $ZIP -P$mypassword -m $back_path/$domain\_db_$TODAY\.zip $domain\_db_$TODAY\.sql && \
     uploadToCOS $domain $back_path/$domain\_db_$TODAY\.zip
