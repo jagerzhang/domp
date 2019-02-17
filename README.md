@@ -71,7 +71,7 @@ eb5684527e4b        php-fpm:7.2                  "php-fpm -F"             2 hour
 domp 默认已经自带了2种虚拟主机配置：`yourdomain.com.conf` 和 `yourdomain.com_cache.conf`，第一个不带`redis`缓存，第二个带`redis`缓存，自行选择一个，然后删除另一个即可。然后参考这个配置文件来定制自己网站的配置文件。若看不懂这个配置文件，可以直接拷贝网站原来的`vhost`配置文件也可以。
 
 #### 2、https证书配置说明
-https证书请放置到 `domp/etc/nginx/cert` 目录，然后在vhost配置中引用即可，注意在vhost里面的配置要变为：/etc/nginx/cert/你放置到证书名字，而非domp/etc/nginx/cert目录，因为已经挂载到了docker里面了！！！
+https证书请放置到 `domp/etc/nginx/cert` 目录，然后在vhost配置中引用即可，注意在vhost里面的配置要变为：`/etc/nginx/cert/证书名字` ，而非`domp/etc/nginx/cert` 目录，因为已经挂载到了`docker`里面了！！！
 
 #### 3、待补充...
 
