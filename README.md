@@ -73,7 +73,8 @@ domp 默认已经自带了2种虚拟主机配置：`yourdomain.com.conf` 和 `yo
 #### 2、https证书配置说明
 https证书请放置到 `domp/etc/nginx/cert` 目录，然后在vhost配置中引用即可，注意在vhost里面的配置要变为：`/etc/nginx/cert/证书名字` ，而非`domp/etc/nginx/cert` 目录，因为已经挂载到了`docker`里面了！！！
 
-#### 3、待补充...
+#### 3、缓存配置说明
+若开启了openresty+redis缓存，且正好又是wordpress网站，则可以安装下`nginx-hepler`和`Redis Object Cache`插件，天然绝配！后续有时间会有domp一系列的文章分享，敬请期待：https://zhang.ge/ 。
 
 ## 附录
 ### 非centos环境使用参考
