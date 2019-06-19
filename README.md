@@ -66,6 +66,20 @@ vim docker-compose.yml
 build: ./etc/php/dockerfile/72/ 
 将72改成需要的php版本，目前支持56、70、71、72 四个版本，若无版本刚需，使用默认的7.2即可！
 ```
+Ps: 若因国内功夫墙导致php-fpm在线编译失败，可以如下修改：
+```
+vim docker-compose.yml
+找到：
+php-fpm:
+    build: ./etc/php/dockerfile/72/
+    container_name: php-fpm
+    image: php-fpm:7.2
+改为：
+php-fpm:
+    #build: ./etc/php/dockerfile/72/
+    container_name: php-fpm
+    image: jagerzhang/php-fpm:7.2 # 这里直接使用张戈做好的镜像即可，版本同样有 5.6，7.0-7.2。如果一定有特殊php模块需求则不能使用。
+```
 #### 3、修改php模块（Ps：绝大部分网站无需修改，除非出现php模块缺失报错）
 ```
 vim etc/php/dockerfile/72/Dockerfile  # 注意你选择的实际版本，这里说7.2版本修改说明，其他版本可参考修改。
