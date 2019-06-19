@@ -47,9 +47,6 @@ services:
   openresty:
     container_name: openresty
     image: openresty/openresty:centos
-    ports:
-      - 443:443
-      - 80:80
     volumes:
       - /etc/localtime:/etc/localtime
       - ./etc/nginx/conf.d:/etc/nginx/conf.d
