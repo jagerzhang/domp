@@ -71,7 +71,7 @@ RUN docker-php-ext-configure gd \
 	&& docker-php-ext-install -j$(nproc) gd
 
 # set locale to utf-8 and timezone to Asia/Shanghai
-RUN gpt-get install -y locales && \
+RUN apt-get install -y locales && \
     echo "zh_CN.UTF-8 UTF-8" > /etc/locale.gen && \
     locale-gen
 

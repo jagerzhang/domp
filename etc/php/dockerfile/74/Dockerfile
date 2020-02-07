@@ -33,8 +33,6 @@ RUN apt-get install -y --no-install-recommends \
 # https://stackoverflow.com/questions/43617752/docker-php-and-freetds-cannot-find-freetds-in-know-installation-directories
 RUN ln -s /usr/lib/x86_64-linux-gnu/libsybdb.so /usr/lib/
 
-RUN docker-php-ext-configure hash --with-mhash && \
-	docker-php-ext-install hash
 RUN docker-php-ext-configure imap --with-kerberos --with-imap-ssl && \
 	docker-php-ext-install imap iconv
 
@@ -71,7 +69,7 @@ RUN docker-php-ext-configure gd \
 	&& docker-php-ext-install -j$(nproc) gd
 
 # set locale to utf-8 and timezone to Asia/Shanghai
-RUN gpt-get install -y locales && \
+RUN apt-get install -y locales && \
     echo "zh_CN.UTF-8 UTF-8" > /etc/locale.gen && \
     locale-gen
 
