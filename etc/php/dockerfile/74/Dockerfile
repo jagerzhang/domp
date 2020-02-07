@@ -1,4 +1,4 @@
-FROM php:7.3-fpm
+FROM php:7.4-fpm
 
 # Copyright by https://github.com/markhilton/docker-php-fpm
 
