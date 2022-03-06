@@ -80,13 +80,22 @@ php-fpm:
     container_name: php-fpm
     image: jagerzhang/php-fpm:7.2 # 这里直接使用张戈做好的镜像即可，版本同样有 5.6，7.0-7.2。如果一定有特殊php模块需求则不能使用。
 ```
-#### 3、修改php模块（Ps：绝大部分网站无需修改，除非出现php模块缺失报错）
+#### 3、自定义php模块
+##### php5.6 ~ 7.2 参考以下内容操作
 ```
-vim etc/php/dockerfile/72/Dockerfile  # 注意你选择的实际版本，这里说7.2版本修改说明，其他版本可参考修改。
+vim etc/php/dockerfile/72/Dockerfile
 
 # 找到如下语句，若满足要求则无需修改，若缺少某模块，则加上 php72w-模块名称，pecl的可能要额外加上 pecl
 yum install -y memcached php72w-fpm php72w-gd php72w-pecl-memcached php72w-opcache php72w-mysql php72w-mbstring php72w-pecl-redis
 ```
+##### php7.3 ~ 7.4 参考以下内容操作
+```
+vim etc/php/dockerfile/74/Dockerfile
+
+# 参考官方安装拓展的方法：使用内置命令 docker-php-ext-install / pecl install / docker-php-ext-enable 安装即可，请参考文档：https://hub.docker.com/_/php (How to install more PHP extensions)
+
+```
+
 #### 4、启动domp
 ```
 bash init.sh
