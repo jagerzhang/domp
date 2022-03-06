@@ -27,14 +27,14 @@ services:
     restart: always 
  
   php-fpm:
-    build: ./etc/php/dockerfile/72/
+    # build: ./etc/php/dockerfile/74/
     container_name: php-fpm
-    image: php-fpm:7.2
+    image: jagerzhang/php-fpm:7.4
     volumes:
       - /etc/localtime:/etc/localtime
-      - ./etc/php/php-fpm.d:/etc/php-fpm.d
+      - ./etc/php/php-fpm.d/php-fpm.conf:/usr/local/etc/php-fpm.conf
       - /dev/shm:/dev/shm
-      - /var/log/php-fpm:/data/wwwlogs/php-fpm
+      - /var/log:/data/wwwlogs/php-fpm
       - /data:/data
       - /tmp:/tmp
     network_mode: host
